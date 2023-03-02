@@ -5,6 +5,12 @@ class TodosController <ApplicationController
       todos.to_json
     end
   
+    get '/todos/:id' do
+      todos = Todo.find(params[:id])
+      todos.to_json
+    end 
+
+
    # Create todo
    post '/todos' do
     todo = Todo.new(params)
@@ -34,12 +40,15 @@ class TodosController <ApplicationController
     end
   end
   
-  # patch '/todos/:id' do
-  #   todo = Todo.find(params[:id])
-  #   todo.update(
-  #     title:params[:title]
-  #   )todo.to_json
+  patch '/todos/:id' do
+    todo = Todo.find(params[:id])
+    todo.update(
+      title:params[:title],
+      description:params[:description],
+      due_date:params[:due_date]
+    )
+    todo.to_json
   
-    
+  end
 end
   
