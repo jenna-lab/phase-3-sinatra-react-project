@@ -13,16 +13,16 @@ class TodosController <ApplicationController
 
    # Create todo
    post '/todos' do
-    todo = Todo.new(params)
-    if todo.save
-      status 201
-      todo.to_json
-    else
-      status 400
-      { error: 'Unable to create todo' }.to_json
-    end
+    category = Category.find_by(name: params[:category])
+    todo = Todo.create(
+      title: params[:title],
+      description: params[:description],
+      due_date: params[:due_date],
+      category: category
+    )
+    todo.to_json
   end
-  
+
    # Delete todo
    delete '/todos/:id' do
     todo = Todo.find_by(id: params[:id])
@@ -45,6 +45,7 @@ class TodosController <ApplicationController
     todo.update(
       title:params[:title],
       description:params[:description],
+      category:params[:category],
       due_date:params[:due_date]
     )
     todo.to_json
