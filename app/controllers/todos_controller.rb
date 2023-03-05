@@ -45,7 +45,7 @@ class TodosController <ApplicationController
     todo.update(
       title:params[:title],
       description:params[:description],
-      category:params[:category],
+      category_id:params[:category],
       due_date:params[:due_date]
     )
     todo.to_json
